@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ncc.airticket.dao.AirTypeDao">
+    <insert id="insert">
+        insert into airtype(
+        air_code,
+        air_Fnumber,
+        air_Cnumber,
+        air_Ynumber,
+        air_totalnumber,
+        flag
+        )values(
+        #{airCode},
+        #{airFNumber},
+        #{airCNumber},
+        #{airYNumber},
+        #{airTotalNumber},
+        #{flag}
+        )
+    </insert>
+    <update id="update">
+        update airtype set
+        air_code=#{airCode},
+        air_Fnumber= #{airFNumber},
+        air_Cnumber= #{airCNumber},
+        air_Ynumber=#{airYNumber},
+        air_Totalnumber= #{airTotalNumber},
+        flag=#{flag}
+        where air_autoid=#{id}
+    </update>
+    <select id="findList" resultType="edu.ncc.airticket.model.AirType">
+        select
+            air_autoid as "id",
+            air_code as airCode,
+            air_Fnumber as airFNumber,
+            air_Cnumber as airCNumber,
+            air_Ynumber as airYNumber,
+            air_Totalnumber as airTotalNumber,
+            flag
+         from airtype
+         where flag !='1'
+    </select>
+    <update id="maintain">
+        update  airtype set
+        flag="1"
+        where air_autoid=#{id}
+    </update>
+</mapper>

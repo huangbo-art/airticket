@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ncc.airticket.dao.BookInfoDao">
+    <select id="find" resultType="edu.ncc.airticket.model.BookInfo">
+        select
+            boo_autoid as "id",
+            com_code as "comCode",
+            cus_id as "cusId",
+            boo_no as "booNO",
+            boo_baddress as "boobAddress",
+            boo_aaddress as "booaAddress",
+            boo_btime as "boobTime",
+            boo_atime as "booaTime",
+            boo_berth as "booBerth",
+            boo_number as "booNumber",
+            boo_fare as "booFare",
+            boo_time as "booTime",
+            flag_pay as "flagPay",
+            flag
+        from bookinfo
+        <where>
+            <if test="cusId !=null and cusId !=''">
+                and cus_id=#{cusId}
+            </if>
+            <if test="booNo !=null and booNo !=''">
+                and boo_no=#{booNo}
+            </if>
+        </where>
+    </select>
+    <insert id="insert">
+        insert into bookinfo(
+            com_code,
+            cus_id,
+            boo_no,
+            boo_baddress,
+            boo_aaddress,
+            boo_btime,
+            boo_atime,
+            boo_berth,
+            boo_number,
+            boo_fare,
+            boo_time,
+            flag_pay,
+            flag
+        )values(
+            #{comCode},
+            #{cusId},
+            #{booNO},
+            #{boobAddress},
+            #{booaAddress},
+            #{boobTime},
+            #{booaTime},
+            #{booBerth},
+            #{booNumber},
+            #{booFare},
+            #{booTime},
+            #{flagPay},
+            #{flag}
+        )
+    </insert>
+    <update id="update">
+        update bookinfo set
+            com_code= #{comCode},
+            cus_id= #{cusId},
+            boo_no= #{booNO},
+            boo_baddress= #{boobAddress},
+            boo_aaddress= #{booaAddress},
+            boo_btime= #{boobTime},
+            boo_atime= #{booaTime},
+            boo_berth= #{booBerth},
+            boo_number= #{booNumber},
+            boo_fare= #{booFare},
+            boo_time= #{booTime},
+            flag_pay= #{flagPay}
+        where boo_autoid=#{id}
+    </update>
+    <select id="findList" resultType="edu.ncc.airticket.model.BookInfo">
+        select
+            boo_autoid as "id",
+            com_code as "comCode",
+            cus_id as "cusId",
+            boo_no as "booNO",
+            boo_baddress as "boobAddress",
+            boo_aaddress as "booaAddress",
+            boo_btime as "boobTime",
+            boo_atime as "booaTime",
+            boo_berth as "booBerth",
+            boo_number as "booNumber",
+            boo_fare as "booFare",
+            boo_time as "booTime",
+            flag_pay as "flagPay",
+            flag
+         from bookinfo
+         where flag=#{flag}
+    </select>
+
+    <update id="pass">
+        update  bookinfo set
+        flag="1"
+        where boo_autoid=#{id}
+    </update>
+    <update id="delete">
+        update  bookinfo set
+        flag="3"
+        where boo_autoid=#{id}
+    </update>
+</mapper>

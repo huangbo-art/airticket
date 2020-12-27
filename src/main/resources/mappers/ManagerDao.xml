@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ncc.airticket.dao.ManagerDao">
+    <select id="find" resultType="edu.ncc.airticket.model.Manager">
+        select
+        man_autoid as "id",
+        man_account as "manAccount",
+        man_pwd as "manPwd",
+        man_id as "manId",
+        man_sex as "manSex",
+        man_telnumber as "manTelnumber",
+        man_email as "manEmail",
+        man_time as "manTime",
+        flag
+        from manager
+        <where>
+            <if test="manAccount !=null and manAccount !=''">
+                and man_account=#{manAccount}
+            </if>
+            <if test="manPwd !=null and manPwd !=''">
+                and man_pwd=#{manPwd}
+            </if>
+        </where>
+    </select>
+    <insert id="insert">
+        insert into manager(
+            man_account,
+            man_pwd,
+            man_id,
+            man_sex,
+            man_telnumber,
+            man_email,
+            man_time,
+            flag
+        )values(
+            #{manAccount},
+            #{manPwd},
+            #{manId},
+            #{manSex},
+            #{manTelNumber},
+            #{manEmail},
+            #{manTime},
+            #{flag}
+        )
+    </insert>
+    <update id="update">
+        update manager set
+        man_account=#{manAccount},
+        man_pwd= #{manPwd},
+        man_id= #{manId},
+        man_sex=#{manSex},
+        man_telnumber= #{manTelNumber},
+        man_email=#{manEmail},
+        man_time= #{manTime}
+        where man_autoid=#{id}
+    </update>
+    <select id="findList" resultType="edu.ncc.airticket.model.Manager">
+        select
+            man_autoid as "id",
+            man_account as "manAccount",
+            man_pwd as "manPwd",
+            man_id as "manId",
+            man_sex as "manSex",
+            man_telnumber as "manTelNumber",
+            man_email as "manEmail",
+            man_time as "manTime",
+            flag
+         from manager
+         where flag !='1'
+    </select>
+    <update id="delete">
+        update  manager set
+        flag="1"
+        where man_autoid=#{id}
+    </update>
+</mapper>

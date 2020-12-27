@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ncc.airticket.dao.CustomerDao">
+    <select id="find" resultType="edu.ncc.airticket.model.Customer">
+        select
+        cus_autoid as "id",
+        cus_account as "cusAccount",
+        cus_pwd as "cusPwd",
+        cus_id as "cusId",
+        cus_sex as "cusSex",
+        cus_telnumber as "cusTelnumber",
+        cus_email as "cusEmail",
+        cus_time as "cusTime",
+        cus_integral as "cusIntegral",
+        flag
+        from customer
+        <where>
+            <if test="cusAccount !=null and cusAccount !=''">
+                and cus_account=#{cusAccount}
+            </if>
+            <if test="cusPwd !=null and cusPwd !=''">
+                and cus_pwd=#{cusPwd}
+            </if>
+        </where>
+    </select>
+    <insert id="insert">
+        insert into customer(
+        cus_account,
+        cus_pwd,
+        cus_id,
+        cus_sex,
+        cus_telnumber,
+        cus_email,
+        cus_time,
+        cus_integral,
+        flag
+        )values(
+        #{cusAccount},
+        #{cusPwd},
+        #{cusId},
+        #{cusSex},
+        #{cusTelNumber},
+        #{cusEmail},
+        #{cusTime},
+        #{cusIntegral},
+        #{flag}
+        )
+    </insert>
+    <update id="update">
+        update Customer set
+        cus_account=#{cusAccount},
+        cus_pwd= #{cusPwd},
+        cus_id= #{cusId},
+        cus_sex=#{cusSex},
+        cus_telnumber= #{cusTelNumber},
+        cus_email=#{cusEmail},
+        cus_time= #{cusTime},
+        cus_integral=#{cusIntegral},
+        where cus_autoid=#{id}
+    </update>
+    <select id="findList" resultType="edu.ncc.airticket.model.Customer">
+        select
+          cus_autoid as "id",
+            cus_account as "cusAccount",
+            cus_pwd as "cusPwd",
+            cus_id as "cusId",
+            cus_sex as "cusSex",
+            cus_telnumber as "cusTelnumber",
+            cus_email as "cusEmail",
+            cus_time as "cusTime",
+            cus_integral as "cusIntegral",
+            flag
+         from customer
+         where flag !='1'
+    </select>
+    <update id="delete">
+        update  customer set
+        flag="1"
+        where cus_autoid=#{id}
+    </update>
+</mapper>

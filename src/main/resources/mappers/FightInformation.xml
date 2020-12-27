@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ncc.airticket.dao.FightInformationDao">
+    <insert id="insert">
+            insert into flightinformation(
+            com_code,
+            air_code,
+            fli_no,
+            fli_discount,
+            fli_baddress,
+            fli_aaddress,
+            fli_btime,
+            fli_atime,
+            fli_Fnumber,
+            fli_Cnumber,
+            fli_Ynumber,
+            fli_tfare,
+            fli_refundtime,
+            fli_jfare,
+            fli_gfare,
+            flag
+        )values(
+            #{comCode},
+            #{airCode},
+            #{fliNo},
+            #{fliDisCount},
+            #{fliBaddress},
+            #{fliAaddress},
+            #{fliBtime},
+            #{fliAtime},
+            #{fliFnumber},
+            #{fliCnumber},
+            #{fliYnumber},
+            #{fliTfare},
+            #{fliRefundtime},
+            #{fliJfare},
+            #{fliGfare},
+            #{flag}
+        )
+</insert>
+    <update id="update">
+        update flightinformation set
+            com_code=#{comCode},
+            air_code=#{airCode},
+            fli_no=#{fliNo},
+            fli_discount=#{fliDisCount},
+            fli_baddress=#{fliBaddress},
+            fli_aaddress=#{fliAaddress},
+            fli_btime=#{fliBtime},
+            fli_atime=#{fliAtime},
+            fli_Fnumber=#{fliFnumber},
+            fli_Cnumber=#{fliCnumber},
+            fli_Ynumber=#{fliYnumber},
+            fli_tfare=#{fliTfare},
+            fli_refundtime=#{fliRefundtime},
+            fli_jfare=#{fliJfare},
+            fli_gfare=#{fliGfare}
+            where fli_autoid=#{id}
+    </update>
+    <select id="findList" resultType="edu.ncc.airticket.model.FightInformation">
+        select
+            fli_autoid as "id",
+            com_code as "comCode",
+            air_code as "airCode",
+            fli_no as "fliNo",
+            fli_discount as "fliDisCount",
+            fli_baddress as "fliBaddress",
+            fli_aaddress as "fliAaddress",
+            fli_btime as "fliBtime",
+            fli_atime as "fliAtime",
+            fli_Fnumber as "fliFnumber",
+            fli_Cnumber as "fliCnumber",
+            fli_Ynumber as "fliYnumber",
+            fli_tfare as "fliTfare",
+            fli_refundtime  as "flRefundtime",
+            fli_jfare as "fliJfare",
+            fli_gfare as "fliGfare",
+            flag
+         from flightinformation where flag!='1'
+    </select>
+    <select id="find" resultType="edu.ncc.airticket.model.FightInformation">
+        select
+            fli_autoid as "id",
+            com_code as "comCode",
+            air_code as "airCode",
+            fli_no as "fliNo",
+            fli_discount as "fliDisCount",
+            fli_baddress as "fliBaddress",
+            fli_aaddress as "fliAaddress",
+            fli_btime as "fliBtime",
+            fli_atime as "fliAtime",
+            fli_Fnumber as "fliFnumber",
+            fli_Cnumber as "fliCnumber",
+            fli_Ynumber as "fliYnumber",
+            fli_tfare as "fliTfare",
+            fli_refundtime  as "flRefundtime",
+            fli_jfare as "fliJfare",
+            fli_gfare as "fliGfare",
+            flag
+            from flightinformation
+            <where>
+                <if test="fliNo!=null and fliNo!=''">
+                    and fli_no=#{fliNo}
+                </if>
+            </where>
+    </select>
+<update id="delete">
+    update flightinformation set
+    flag='1'
+    where fli_autoid=#{id}
+</update>
+
+</mapper>
